@@ -21,13 +21,29 @@ class actividad:
         self.puntaje = Str_puntaje
         self.inicio = Dte_inicio
         self.fin = Dte_fin
+    def registrar_puntaje(self,Flt_puntaje)-> None:
+        self.puntaje = Flt_puntaje
 
 class materia:
-    def __init__(self,Str_nombre) -> None:
+    # asistencia, actividades, matricula, docentes, estudiantes
+    def __init__(self,Str_nombre,Int_nivel) -> None:
+        self.nombre = Str_nombre
+        self.nivel = Int_nivel
+        self.actividades = []
+    def registrar_asistencia(self):
+        #calcula el porcentaje de asistencias
         pass
+    def nueva_actividad(self,Obj_actividad):
+        self.actividades.append(Obj_actividad)
 
 class carrera:
-    pass
+    #materias
+    def __init__(self,Str_nombre,Str_modalidad) -> None:
+        self.nombre = Str_nombre
+        self.modalidad = Str_modalidad
+        self.materias = []
+    def nueva_actividad(self,Obj_materia)-> None:
+        self.materias.append(Obj_materia)
 
 class matricula:
     pass
