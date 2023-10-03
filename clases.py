@@ -4,16 +4,25 @@ class usuario:
         self.apellido = Str_apellido
 
 class estudiante(usuario):
-    def __init__(self, Str_nombre, Str_apellido,Str_carrera,Obj_matricula)-> None:
+    def __init__(self, Str_nombre, Str_apellido,Str_carrera,Lst_Materias)-> None:
         super().__init__(Str_nombre, Str_apellido)
         self.carrera = Str_carrera
-        self.matricula = Obj_matricula
+        self.__materias= Lst_Materias
+
+        #NOTE: quitar property dependiendo de si es necesario o no
+    @property # se puede usar solo con atributos privados
+    def materias(self)->list:
+        return self.__materias
+
+
 
 class docente(usuario):
     def __init__(self, Str_nombre, Str_apellido,Str_materia,Lst_aulas)-> None:
         super().__init__(Str_nombre, Str_apellido)
         self.materia = Str_materia
         self.aulas = Lst_aulas
+    def calificar(self,Obj_actividad) -> None:
+        Obj_actividad.puntaje=1
 
 class actividad:
     def __init__(self,Str_nombre,Str_puntaje,Dte_inicio,Dte_fin) -> None:
@@ -30,10 +39,10 @@ class materia:
         self.nombre = Str_nombre
         self.nivel = Int_nivel
         self.actividades = []
-    def registrar_asistencia(self):
+    def registrar_asistencia(self)->None:
         #calcula el porcentaje de asistencias
         pass
-    def nueva_actividad(self,Obj_actividad):
+    def nueva_actividad(self,Obj_actividad)-> None:
         self.actividades.append(Obj_actividad)
 
 class carrera:
@@ -46,4 +55,5 @@ class carrera:
         self.materias.append(Obj_materia)
 
 class matricula:
-    pass
+    def __init__(self,Obj_estudiante,Int_deuda,Str_materia_nombre) -> None:
+        pass
