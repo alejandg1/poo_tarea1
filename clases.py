@@ -41,6 +41,8 @@ class asignatura:
         self.docente = Str_docente
 #        self.porPagar = Int_precio
         self.estado = "aprobado" if self.notas.final>70 else "reprobado" 
+    def agregar_notas(self,Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)-> None:
+        self.notaself.notas = Notas(Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)
 
 class Notas:
     def __init__(self,Flt_n1,Flt_n2,Flt_ex1,Flt_p1,Flt_n3,Flt_n4,Flt_ex2,Flt_p2,Flt_final) -> None:
