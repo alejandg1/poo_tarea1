@@ -33,13 +33,14 @@ class carrera:
         self.paralelo = Str_paralelo
 
 class asignatura:
-    def __init__(self,Str_nombre,Int_nivel,Int_asistencia,Str_docente,Obj_notas,Int_precio) -> None:
+    def __init__(self,Str_nombre,Int_nivel,Int_asistencia,Obj_docente,Obj_notas,Str_matricula,Str_seccion) -> None:
         self.nombre = Str_nombre
         self.asistencia = Int_asistencia
         self.nivel = Int_nivel
         self.notas = Obj_notas
-        self.docente = Str_docente
-#        self.porPagar = Int_precio
+        self.docente = Obj_docente
+        self.matricula = Str_matricula
+        self.seccion = Str_seccion
         self.estado = "aprobado" if self.notas.final>70 else "reprobado" 
     def agregar_notas(self,Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)-> None:
         self.notaself.notas = Notas(Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)
@@ -57,8 +58,7 @@ class Notas:
         self.final = Flt_final
 
 class detCabecera:
-    def __init__(self,Str_nombre,Obj_estudiante,Obj_notas,Str_estado,Int_asistencia) -> None:
-        self.nombre = Str_nombre
+    def __init__(self,Obj_estudiante,Obj_notas,Str_estado,Int_asistencia) -> None:
         self.estudiante_nombre = Obj_estudiante.nombre
         self.estudiante_apellido = Obj_estudiante.apellido
         self.notas = Obj_notas
@@ -73,7 +73,8 @@ class detCabecera:
         # self.ex2 = Obj_notas.ex2
         # self.p2 = Obj_notas.p2
 class cabecera:
-    def __init__(self,Str_profesor_name,Str_asignatura_name,Str_nivel_asignatura,Str_seccion_asignatura,Str_carrera_nombre,Str_paralelo,Obj_fechas,Str_facultad) -> None:
+    def __init__(self,,Str_nombre,Str_profesor_name,Str_asignatura_name,Str_nivel_asignatura,Str_seccion_asignatura,Str_carrera_nombre,Str_paralelo,Obj_fechas,Str_facultad) -> None:
+        self.nombre = Str_nombre
         self.profesor = Str_profesor_name
         self.asignatura = Str_asignatura_name
         self.nivel = Str_nivel_asignatura
