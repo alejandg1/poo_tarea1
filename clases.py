@@ -14,17 +14,18 @@ class carrera:
 
 
 class Notas:
-    def __init__(self, n1: float, n2: float, ex1: float, p1: float, n3: float, n4: float, ex2: float, p2: float, Final: float) -> None:
+    def __init__(self, n1:float, n2:float, ex1: float, p1:float, n3:float, n4:float, ex2:float, p2:float, rec:float, final:float) -> None:
         self.N1 = n1
         self.N2 = n2
         self.EX1 = ex1
         self.P1 = p1
         self.N3 = n3
         self.N4 = n4
-        self.P2 = p2
         self.EX2 = ex2
-        self.final = Final
-
+        self.P2 = p2
+        self.REC = rec
+        self.FINAL = final
+        
     def mostrar_notas(self):
         list_notas = {
             "N1": self.N1,
@@ -33,12 +34,12 @@ class Notas:
             "P1": self.P1,
             "N3": self.N3,
             "N4": self.N4,
-            "P2": self.P2,
             "EX2": self.EX2,
-            "Final": self.final
+            "P2": self.P2,
+            "REC": self.REC,
+            "FINAL": self.FINAL
         }
         return list_notas
-
 
 class asignatura:
 
