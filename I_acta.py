@@ -1,4 +1,3 @@
-from _typeshed import StrPath
 from abc import ABC,abstractmethod
 class Interface(ABC):
     @abstractmethod

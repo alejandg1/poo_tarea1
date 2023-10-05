@@ -1,5 +1,3 @@
-from _typeshed import OpenBinaryMode
-from typing import no_type_check
 from I_acta import acta
 
 class usuario:
