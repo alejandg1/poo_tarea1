@@ -1,106 +1,112 @@
 from I_acta import acta
 funciones = acta()
 
-
-class usuario:
-    def __init__(self, Str_nombre, Str_apellido) -> None:
-        self.nombre = Str_nombre
-        self.apellido = Str_apellido
-
-
-class estudiante(usuario):
-    def __init__(self, Str_nombre, Str_apellido, Obj_carrera) -> None:
-        super().__init__(Str_nombre, Str_apellido)
-        self.carrera = Obj_carrera
-        self.__materias = []
-
-    def agregar_Materia(self, Obj_materia) -> None:
-        self.__materias.append(Obj_materia)
-
-    @property  # se puede usar solo con atributos privados
-    def materias(self) -> list:
-        return self.__materias
-
-
-class docente(usuario):
-    def __init__(self, Str_nombre, Str_apellido) -> None:
-        super().__init__(Str_nombre, Str_apellido)
-
-
 class carrera:
-    def __init__(self, Str_nombre, Str_facultad, Str_universidad, Dte_inicio, Dte_fin, Str_paralelo) -> None:
-        self.nombre = Str_nombre
-        self.facultad = Str_facultad
-        self.universidad = Str_universidad
-        self.inicio = Dte_inicio
-        self.fin = Dte_fin
-        self.paralelo = Str_paralelo
+    def __init__(self, nombre:str, facultad:str, universidad:str, paralelo:str) -> None:
+        self.nombre = nombre
+        self.facultad = facultad
+        self.universidad = universidad
+        #NOTE: esto podria ser en materia o semestre
+        # self.inicio = Dte_inicio
+        # self.fin = Dte_fin
+        self.paralelo = paralelo
+
+class Notas:
+    def __init__(self, n1:float, n2:float, ex1:float, p1:float, n3:float, n4:float, ex2:float, p2:float, Final:float) -> None:
+        self.N1 = n1
+        self.N2 = n2
+        self.EX1 = ex1
+        self.P1 = p1
+        self.N3 = n3
+        self.N4 = n4
+        self.P2 = p2
+        self.EX2 = ex2
+        self.final = Final
 
 
 class asignatura:
 
-    def __init__(self, Str_nombre, Int_nivel, Int_asistencia, Str_docente_name, Obj_notas, Str_matricula, Str_seccion) -> None:
-        self.nombre = Str_nombre
-        self.asistencia = Int_asistencia
-        self.nivel = Int_nivel
-        self.notas = Obj_notas
-        self.docente = Str_docente_name
-        self.matricula = Str_matricula
-        self.seccion = Str_seccion
-        self.estado = "aprobado" if self.notas.final > 70 else "reprobado"
+    def __init__(self, nombre:str, nivel:int, asistencia:int, docente_name:str,  matricula:str, seccion:str,notas=[]) -> None:
+        self.nombre = nombre
+        self.asistencia = asistencia
+        self.nivel = nivel
+        self.notas = notas
+        self.docente = docente_name
+        self.matricula = matricula
+        self.seccion = seccion
+#        self.estado = "aprobado" if self.notas.final > 70 else "reprobado"
 
-    def agregar_notas(self, Flt_n1, Flt_n2, Flt_p1, Flt_ex1, Flt_n3, Flt_n4, Flt_p2, Flt_ex2, Flt_final) -> None:
-        self.notas = Notas(Flt_n1, Flt_n2, Flt_p1, Flt_ex1,
-                           Flt_n3, Flt_n4, Flt_p2, Flt_ex2, Flt_final)
+    def agregar_notas(self, n1:float, n2:float, p1:float, ex1:float, n3:float, n4:float, p2:float, ex2:float, final:float) -> None:
+        self.notas = Notas(n1, n2, p1, ex1,
+                           n3, n4, p2, ex2, final)
+
+class usuario:
+    def __init__(self, nombre:str, apellido:str) -> None:
+        self.nombre = nombre
+        self.apellido = apellido
 
 
-class Notas:
-    def __init__(self, Flt_n1, Flt_n2, Flt_ex1, Flt_p1, Flt_n3, Flt_n4, Flt_ex2, Flt_p2, Flt_final) -> None:
-        self.N1 = Flt_n1
-        self.N2 = Flt_n2
-        self.EX1 = Flt_ex1
-        self.P1 = Flt_p1
-        self.N3 = Flt_n3
-        self.N4 = Flt_n4
-        self.P2 = Flt_p2
-        self.EX2 = Flt_ex2
-        self.final = Flt_final
+class estudiante(usuario):
+    def __init__(self, nombre:str, apellido:str, carrera:carrera) -> None:
+        super().__init__(nombre, apellido)
+        self.carrera = carrera
+        self.__materias = []
+    def agregar_Materia(self, materia:asignatura) -> None:
+        self.__materias.append(materia)
 
+    @property
+    def materias(self):
+        list_materias = []
+        for materia in self.__materias:
+            list_materias.append(
+                {
+                    "nombre":materia.nombre,
+                    "docente":materia.docente,
+                    "asistencia":materia.asistencia,
+                    "notas":materia.notas,
+                    "matricula":materia.matricula,
+                    "seccion":materia.seccion,
+                    "nivel":materia.nivel
+                }
+            )
+class docente(usuario):
+    def __init__(self, nombre:str, apellido:str) -> None:
+        super().__init__(nombre, apellido)
 
 class detacta:
-    def __init__(self, Obj_estudiante, Obj_notas, Str_estado, Int_asistencia, Str_asignatura) -> None:
-        self.estudiante_nombre = Obj_estudiante.nombre
-        self.estudiante_apellido = Obj_estudiante.apellido
-        self.notas = Obj_notas
-        self.asistencia = Int_asistencia
-        self.estado = Str_estado
+    def __init__(self, estudiante:estudiante, notas:object, estado:str, asistencia:int, asignatura:str) -> None:
+        self.estudiante_nombre = estudiante.nombre
+        self.estudiante_apellido = estudiante.apellido
+        self.notas = notas
+        self.asistencia = asistencia
+        self.estado = estado
+        self.asignatura = asignatura
 
 
 class cabecera:
-
-    def __init__(self,Objt_estudiante, Str_nombre, Str_asignatura_name, Str_seccion_asignatura) -> None:
-        self.nombre = Str_nombre
+    def __init__(self,estudiante:estudiante, nombre_acta:str, asignatura_name:str, seccion_asignatura:str) -> None:
+        self.nombre = nombre_acta
         self.profesor = funciones.obtener_profesor(
-            Objt_estudiante, Str_asignatura_name)
-        self.asignatura = Str_asignatura_name
+            estudiante, asignatura_name)
+        self.asignatura = asignatura_name
         self.nivel = funciones.obtener_nivel(
-            Objt_estudiante, Str_asignatura_name)
-        self.seccion = Str_seccion_asignatura
-        self.carrera = Objt_estudiante.carrera.nombre
+            estudiante, asignatura_name)
+        self.seccion = seccion_asignatura
+        self.carrera = estudiante.carrera.nombre
         self.paralelo = funciones.obtener_paralelo(
-            Objt_estudiante, Str_asignatura_name)
-        self.fechas = funciones.obtener_inicio_fin(Objt_estudiante)
-        self.facultad = funciones.obtener_facultad(Objt_estudiante)
+            estudiante, asignatura_name)
+        self.fechas = funciones.obtener_inicio_fin(estudiante)
+        self.facultad = funciones.obtener_facultad(estudiante)
         self.detalles = []
 
-    def agregar_detalle(self, Objt_estudiante, Str_asignatura):
+    def agregar_detalle(self, estudiante:estudiante, asignatura:str):
         funciones = acta()
-        Obj_notas = funciones.obtener_notas(Objt_estudiante, Str_asignatura)
-        Str_estado = funciones.obtener_estado(Objt_estudiante, Str_asignatura)
+        Int_notas = funciones.obtener_notas(estudiante, asignatura)
+        Str_estado = funciones.obtener_estado(estudiante, asignatura)
         Int_asistencia = funciones.obtener_asistencia(
-            Objt_estudiante, Str_asignatura)
-        detalle = detacta(Objt_estudiante, Obj_notas,
-                          Str_estado, Int_asistencia, Str_asignatura)
+            estudiante, asignatura)
+        detalle = detacta(estudiante, Int_notas,
+                          Str_estado, Int_asistencia, asignatura)
         self.detalles.append(detalle)
 
     def imprimir(self):

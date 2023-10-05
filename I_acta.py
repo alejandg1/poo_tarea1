@@ -27,10 +27,12 @@ class Interface(ABC):
 
 
 class acta():
-    def obtener_asistencia(self, Objt_estudiante,Str_asignatura) -> object:
+    def obtener_asistencia(self, Objt_estudiante,Str_asignatura) -> int:
+        asistencias = 1
         for asignatura in Objt_estudiante.asignaturas:
             if asignatura.nombre == Str_asignatura:
-                return asignatura.asistencia
+                asistencias =  asignatura.asistencia
+        return asistencias
     def obtener_estado(self, Objt_estudiante,Str_asignatura) -> str:
         estado = "error"
         for asignatura in Objt_estudiante.asignaturas:
