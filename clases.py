@@ -34,12 +34,24 @@ class carrera:
         self.paralelo = Str_paralelo
 
 class asignatura:
+<<<<<<< HEAD
     def __init__(self,Str_nombre,Int_nivel,Int_asistencia,Str_docente_name,Obj_notas) -> None:
+=======
+
+    def __init__(self,Str_nombre,Int_nivel,Int_asistencia,Obj_docente,Obj_notas,Str_matricula,Str_seccion) -> None:
+>>>>>>> e1941f6c3fc880659bd06b7dc3cff60851f6091a
         self.nombre = Str_nombre
         self.asistencia = Int_asistencia
         self.nivel = Int_nivel
         self.notas = Obj_notas
+<<<<<<< HEAD
         self.docente = Str_docente_name
+=======
+
+        self.docente = Obj_docente
+        self.matricula = Str_matricula
+        self.seccion = Str_seccion
+>>>>>>> e1941f6c3fc880659bd06b7dc3cff60851f6091a
         self.estado = "aprobado" if self.notas.final>70 else "reprobado" 
     def agregar_notas(self,Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)-> None:
         self.notas = Notas(Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)
@@ -63,9 +75,15 @@ class detacta:
         self.notas = Obj_notas
         self.asistencia = Int_asistencia
         self.estado = Str_estado  
+<<<<<<< HEAD
 class cabeceraActa:
     def __init__(self,Str_nombre,Objt_estudiante,Str_asignatura_name,Str_seccion_asignatura) -> None:
         funciones = acta()
+=======
+class cabecera:
+
+    def __init__(self,Str_nombre,Str_profesor_name,Str_asignatura_name,Str_nivel_asignatura,Str_seccion_asignatura,Str_carrera_nombre,Str_paralelo,Obj_fechas,Str_facultad) -> None:
+>>>>>>> e1941f6c3fc880659bd06b7dc3cff60851f6091a
         self.nombre = Str_nombre
         self.profesor = funciones.obtener_profesor(Objt_estudiante,Str_asignatura_name)
         self.asignatura = Str_asignatura_name
