@@ -1,4 +1,5 @@
-from _typeshed import Self, StrOrLiteralStr
+from _typeshed import OpenBinaryMode
+from typing import no_type_check
 from I_acta import acta
 
 class usuario:
@@ -33,13 +34,12 @@ class carrera:
         self.paralelo = Str_paralelo
 
 class asignatura:
-    def __init__(self,Str_nombre,Int_nivel,Int_asistencia,Str_docente_name,Obj_notas,Int_precio) -> None:
+    def __init__(self,Str_nombre,Int_nivel,Int_asistencia,Str_docente_name,Obj_notas) -> None:
         self.nombre = Str_nombre
         self.asistencia = Int_asistencia
         self.nivel = Int_nivel
         self.notas = Obj_notas
         self.docente = Str_docente_name
-#        self.porPagar = Int_precio
         self.estado = "aprobado" if self.notas.final>70 else "reprobado" 
     def agregar_notas(self,Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)-> None:
         self.notas = Notas(Flt_n1,Flt_n2,Flt_p1,Flt_ex1,Flt_n3,Flt_n4,Flt_p2,Flt_ex2,Flt_final)
@@ -56,24 +56,25 @@ class Notas:
         self.EX2 = Flt_ex2
         self.final = Flt_final
 
-class detCabecera:
-    def __init__(self,Obj_estudiante,Obj_notas,Str_estado,Int_asistencia) -> None:
+class detacta:
+    def __init__(self,Obj_estudiante,Obj_notas,Str_estado,Int_asistencia,Str_asignatura) -> None:
         self.estudiante_nombre = Obj_estudiante.nombre
         self.estudiante_apellido = Obj_estudiante.apellido
         self.notas = Obj_notas
         self.asistencia = Int_asistencia
         self.estado = Str_estado  
-class cabecera:
-    def __init__(self,Str_nombre,Str_profesor_name,Str_asignatura_name,Str_nivel_asignatura,Str_seccion_asignatura,Str_carrera_nombre,Str_paralelo,Obj_fechas,Str_facultad) -> None:
+class cabeceraActa:
+    def __init__(self,Str_nombre,Objt_estudiante,Str_asignatura_name,Str_seccion_asignatura) -> None:
+        funciones = acta()
         self.nombre = Str_nombre
-        self.profesor = Str_profesor_name
+        self.profesor = funciones.obtener_profesor(Objt_estudiante,Str_asignatura_name)
         self.asignatura = Str_asignatura_name
-        self.nivel = Str_nivel_asignatura
+        self.nivel = funciones.obtener_nivel(Objt_estudiante,Str_asignatura_name)
         self.seccion = Str_seccion_asignatura
-        self.carrera = Str_carrera_nombre
-        self.paralelo = Str_paralelo
-        self.fechas = Obj_fechas
-        self.facultad = Str_facultad
+        self.carrera = Objt_estudiante.carrera.nombre
+        self.paralelo = funciones.obtener_paralelo(Objt_estudiante,Str_asignatura_name)
+        self.fechas = funciones.obtener_inicio_fin(Objt_estudiante)
+        self.facultad = funciones.obtener_facultad(Objt_estudiante)
         self.detalles = []
 
     def agregar_detalle(self,Objt_estudiante,Str_asignatura):
@@ -81,9 +82,12 @@ class cabecera:
         Obj_notas = funciones.obtener_notas(Objt_estudiante,Str_asignatura)
         Str_estado = funciones.obtener_estado(Objt_estudiante,Str_asignatura)
         Int_asistencia = funciones.obtener_asistencia(Objt_estudiante,Str_asignatura)
-        detalle = detCabecera(Objt_estudiante,Obj_notas,Str_estado,Int_asistencia)
+        detalle = detacta(Objt_estudiante,Obj_notas,Str_estado,Int_asistencia,Str_asignatura)
         self.detalles.append(detalle)
     def imprimir(self):
+        print(self.nombre.center(20))
+        print()
+
         for detalle in self.detalles:
             #completar esto
             print(detalle)
