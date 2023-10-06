@@ -14,17 +14,17 @@ class carrera:
 
 
 class Notas:
-    def __init__(self, n1:float, n2:float, ex1: float, p1:float, n3:float, n4:float, ex2:float, p2:float, rec:float, final:float) -> None:
+    def __init__(self, n1:float, n2:float, ex1: float, n3:float, n4:float, ex2:float, rec:float) -> None:
         self.N1 = n1
         self.N2 = n2
         self.EX1 = ex1
-        self.P1 = p1
+        self.P1 = n1+n2+ex1
         self.N3 = n3
         self.N4 = n4
         self.EX2 = ex2
-        self.P2 = p2
+        self.P2 = n3+n4+ex2
         self.REC = rec
-        self.FINAL = final
+        self.FINAL = self.P1+self.P2+self.REC
         
     def mostrar_notas(self):
         list_notas = {
@@ -52,12 +52,11 @@ class asignatura:
         self.matricula = matricula
         self.seccion = seccion
 
-    def agregar_notas(self, n1: float, n2: float, p1: float, ex1: float, n3: float, n4: float, p2: float, ex2: float, final: float) -> None:
-        self.notas = Notas(n1, n2, p1, ex1,
-                           n3, n4, p2, ex2, final)
+    def agregar_notas(self, n1: float, n2: float, ex1: float, n3: float, n4: float, ex2: float,rec:float) -> None:
+        self.notas = Notas(n1, n2, ex1,
+                           n3, n4, ex2,rec)
 
-        self.estado = "aprobado" if self.notas.final > 70 else "reprobado"
-
+        self.estado = "aprobado" if self.notas.FINAL> 70 or self.notas.FINAL+self.notas.REC > 70 else "reprobado"
 
 class usuario:
     def __init__(self, nombre: str, apellido: str) -> None:
@@ -74,8 +73,8 @@ class estudiante(usuario):
     def agregar_Materia(self, materia: asignatura) -> None:
         self.materias.append(materia)
 
-    def obtener_Materia(self, nombre: str) -> asignatura:
-        hallado = False
+    def obtener_Materia(self, nombre: str)-> asignatura:
+        hallado = "no encontrado"
         for materia in self.materias:
             if materia.nombre == nombre:
                 hallado = materia
@@ -98,19 +97,17 @@ class detacta:
 
 
 class cabecera:
-    def __init__(self, estudiante: estudiante, nombre_acta: str, asignatura_name: str, seccion_asignatura: str) -> None:
+    def __init__(self, carrera:carrera, nombre_acta: str, Asignatura:asignatura,inicio:str,fin:str) -> None:
         self.nombre = nombre_acta
-        self.profesor = funciones.obtener_profesor(
-            estudiante, asignatura_name)
-        self.asignatura = asignatura_name
-        self.nivel = funciones.obtener_nivel(
-            estudiante, asignatura_name)
-        self.seccion = seccion_asignatura
-        self.carrera = estudiante.carrera.nombre
-        self.paralelo = funciones.obtener_paralelo(
-            estudiante, asignatura_name)
-        self.fechas = funciones.obtener_inicio_fin(estudiante)
-        self.facultad = funciones.obtener_facultad(estudiante)
+        self.profesor = Asignatura.docente
+        self.asignatura = Asignatura.nombre
+        self.nivel = Asignatura.nivel
+        self.seccion = Asignatura.seccion
+        self.carrera = carrera.nombre
+        self.paralelo = carrera.paralelo
+        self.inicio = inicio
+        self.fin = fin
+        self.facultad = carrera.facultad
         self.detalles = []
 
     def agregar_detalle(self, estudiante: estudiante, asignatura: str):
