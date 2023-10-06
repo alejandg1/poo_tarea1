@@ -8,9 +8,7 @@ class Carrera:
 class Asignatura:
     def __init__(self,nombre:str, nivel:str, asistencia:int, docente_name:str, matricula:str, seccion:str, notas=[]) -> None:
         self.nombre = nombre
-        self.nivel = nivel
-        self.asistencia = asistencia
-        self.notas = notas
+        self.nivel = nivel self.asistencia = asistencia self.notas = notas
         self.docente = docente_name
         self.matricula = matricula
         self.seccion = seccion 
