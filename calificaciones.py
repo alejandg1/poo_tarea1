@@ -1,3 +1,4 @@
+from I_acta import acta
 from clases import estudiante, docente, asignatura, carrera, cabecera
 
 ingenieria = carrera("ingenieria", "FACI", "UNEMI", "A1")
@@ -37,12 +38,10 @@ Ariana_pendeja.obtener_Materia("poo").agregar_notas(
     10, 10, 10, 10, 10, 101, 10)
 William.obtener_Materia("poo").agregar_notas(10, 10, 10, 10, 10, 101, 10)
 
-print(Mika.obtener_Materia("poo").estado)
-print(Adre.obtener_Materia("poo").estado)
-print(Fiore.obtener_Materia("poo").estado)
-print(Ariana_pendeja.obtener_Materia("poo").estado)
-print(Samuel.obtener_Materia("poo").estado)
-print(William.obtener_Materia("poo").estado)
-
-
 calificaciones = cabecera(ingenieria, "Acta", poo, "nose", "nose")
+calificaciones.agregar_detalle(Mika,"poo")
+calificaciones.agregar_detalle(Adre,"poo")
+calificaciones.agregar_detalle(William,"poo")
+calificaciones.agregar_detalle(Ariana_pendeja,"poo")
+calificaciones.agregar_detalle(Fiore,"poo")
+calificaciones.imprimir()

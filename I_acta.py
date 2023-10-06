@@ -29,18 +29,18 @@ class Interface(ABC):
 class acta():
     def obtener_asistencia(self, Objt_estudiante,Str_asignatura) -> int:
         asistencias = 1
-        for asignatura in Objt_estudiante.asignaturas:
+        for asignatura in Objt_estudiante.materias:
             if asignatura.nombre == Str_asignatura:
                 asistencias =  asignatura.asistencia
         return asistencias
     def obtener_estado(self, Objt_estudiante,Str_asignatura) -> str:
         estado = "error"
-        for asignatura in Objt_estudiante.asignaturas:
+        for asignatura in Objt_estudiante.materias:
             if asignatura.nombre == Str_asignatura:
                 estado = asignatura.estado
         return estado
     def obtener_notas(self, Objt_estudiante,Str_asignatura) -> object:
-        for asignatura in Objt_estudiante.asignaturas:
+        for asignatura in Objt_estudiante.materias:
             if asignatura.nombre == Str_asignatura:
                 return asignatura.notas
 
