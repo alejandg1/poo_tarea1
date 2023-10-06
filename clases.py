@@ -41,7 +41,7 @@ class Notas:
 
 class asignatura:
 
-    def __init__(self, nombre: str, nivel: int, asistencia: int, docente_name: str,  matricula: str, seccion: str, notas=[]) -> None:
+    def __init__(self, nombre: str, nivel: int, asistencia: int, docente_name: str,  matricula: str, seccion: str, Iperiodo, Fperiodo, Lperiodo,  notas=[]) -> None:
         self.nombre = nombre
         self.asistencia = asistencia
         self.nivel = nivel
@@ -49,12 +49,15 @@ class asignatura:
         self.docente = docente_name
         self.matricula = matricula
         self.seccion = seccion
+        self.periodo_In = Iperiodo
+        self.periodo_Out = Fperiodo
+        self.periodo_LEV = Lperiodo
 
     def agregar_notas(self, n1: float, n2: float, ex1: float, n3: float, n4: float, ex2: float,rec:float) -> None:
         self.notas = Notas(n1, n2, ex1,
                             n3, n4, ex2,rec)
 
-        self.estado = "aprobado" if self.notas.FINAL> 70 or self.notas.FINAL+self.notas.REC > 70 else "reprobado"
+        self.estado = "APROBADO" if self.notas.FINAL> 70 or self.notas.FINAL+self.notas.REC > 70 else "REPROBADO"
 
 class usuario:
     def __init__(self, nombre: str, apellido: str) -> None:
@@ -96,12 +99,12 @@ class detacta:
         self.id = detacta.id
 
     def mostrar(self):
-        linea =[self.id,(self.estudiante_nombre +" "+ self.estudiante_apellido),self.notas.N1,self.notas.N2,self.notas.P1,self.notas.EX1,self.notas.N3,self.notas.N4,self.notas.EX2,self.notas.P2,self.notas.REC,self.notas.FINAL,self.asistencia,self.estado]
+        linea =[self.id,(self.estudiante_nombre +" "+ self.estudiante_apellido),self.notas.N1,self.notas.N2,self.notas.EX1,self.notas.P1,self.notas.N3,self.notas.N4,self.notas.EX2,self.notas.P2,self.notas.REC,self.notas.FINAL,self.asistencia,self.estado]
         return linea
 
 
 class cabecera:
-    def __init__(self, carrera:carrera, nombre_acta: str, Asignatura:asignatura,inicio:str,fin:str) -> None:
+    def __init__(self, carrera:carrera, nombre_acta: str, Asignatura:asignatura) -> None:
         self.nombre = nombre_acta
         self.profesor = Asignatura.docente
         self.asignatura = Asignatura.nombre
@@ -109,9 +112,11 @@ class cabecera:
         self.seccion = Asignatura.seccion
         self.carrera = carrera.nombre
         self.paralelo = carrera.paralelo
-        self.inicio = inicio
-        self.fin = fin
+        self.universidad = carrera.universidad
         self.facultad = carrera.facultad
+        self.Lev_periodo = Asignatura.periodo_LEV
+        self.I_periodo = Asignatura.periodo_In
+        self.Out_periodo = Asignatura.periodo_Out
         self.detalles = []
 
     def agregar_detalle(self, estudiante: estudiante, asignatura: str):
@@ -121,29 +126,27 @@ class cabecera:
         Int_asistencia = funciones.obtener_asistencia(
             estudiante, asignatura)
         detalle = detacta(estudiante, Int_notas,
-                          Str_estado, Int_asistencia)
+                            Str_estado, Int_asistencia)
         self.detalles.append(detalle)
     def imprimir(self):
+        #universidad_azul = "\033[94m" + self.universidad + "\033[0m"
         tabla = [
-            [self.nombre],
-            [(f"FACULTAD:{self.facultad}")],
-            [(f"CARRERA:{self.carrera}"),(f"NIVEL:{self.nivel}")],
-            [(f"PARALELO:{self.paralelo}"),(f"ASIGNATURA:{self.asignatura}")],
-            [(f"PROFESOR:{self.profesor}"),(f"PERIODO LECTIVO:{self.inicio} - {self.fin}")],
+            #[universidad_azul],
+            [self.universidad],
+            [(""),self.nombre],
+            [(""),(f"PERIODO LECTIVO: {self.Lev_periodo}")],
+            [(f"{self.facultad}")],
+            [(f"CARRERA: {self.carrera}")],
+            [(f"NIVEL: {self.nivel}"),(""), (f"PARALELO: {self.paralelo}")],
+            [(f"PROFESOR: {self.profesor}"),(""),(f"ASIGNATURA: {self.asignatura}")],
+            [(f"SECCION: {self.seccion}"),(""),(f"INICIO: {self.I_periodo}"),(f"FIN: {self.Out_periodo}")],
         ]
         cab = tabulate(tabla,"",tablefmt="rounded_grid")
         print(cab)
-#         print(f'FACULTAD: {self.facultad}')
-#         print(f'CARRERA: {self.carrera}                   NIVEL:{self.nivel}')
-# #        print(f'NIVEL: {self.nivel}')
-#         print(f'PARALELO: {self.paralelo}                 ASIGNATURA:{self.asignatura}')
-#         print(f'ASIGNATURA: {self.asignatura}')
-#         print(f'PROFESOR(A): {self.profesor}')
-#         print(f'PERIODO LECTIVO: {self.inicio} - {self.fin}')
         detalles =[]
         for detalle in self.detalles:
             linea = detalle.mostrar()
             detalles.append(linea)
-        encabezados =["No.","APELLIDOS Y NOMBRES","N1","N2","EX1","P1","N3","N4","EX2","P2","RE","N.FINAL","ASIST","ESTADO"]
+        encabezados =["No.","APELLIDOS Y NOMBRES","N1","N2","EX1","P1","N3","N4","EX2","P2","RE","N.FINAL","% ASIST","ESTADO"]
         notas = tabulate(detalles,encabezados,tablefmt="rounded_grid")
         print(notas)
