@@ -1,4 +1,5 @@
 from abc import ABC,abstractmethod
+
 class Interface(ABC):
     @abstractmethod
     def obtener_asistencia(self,Objt_estudiante,Str_asignatura) -> object :
@@ -24,8 +25,6 @@ class Interface(ABC):
     @abstractmethod
     def obtener_inicio_fin(self,Objt_estudiante)->object:
         pass
-
-
 class acta():
     def obtener_asistencia(self, Objt_estudiante,Str_asignatura) -> int:
         asistencias = 1
@@ -69,5 +68,3 @@ class acta():
             "inicio":Objt_estudiante.carrrera.fin,
         }
         return inicio_fin
-
-
