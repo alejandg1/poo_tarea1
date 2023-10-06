@@ -1,3 +1,4 @@
+from tabulate import tabulate
 from I_acta import acta
 funciones = acta()
 
@@ -7,9 +8,6 @@ class carrera:
         self.nombre = nombre
         self.facultad = facultad
         self.universidad = universidad
-        # NOTE: esto podria ser en materia o semestre
-        # self.inicio = Dte_inicio
-        # self.fin = Dte_fin
         self.paralelo = paralelo
 
 
@@ -87,12 +85,19 @@ class docente(usuario):
 
 
 class detacta:
+    id = 0
     def __init__(self, estudiante: estudiante, notas: object, estado: str, asistencia: int) -> None:
         self.estudiante_nombre = estudiante.nombre
         self.estudiante_apellido = estudiante.apellido
         self.notas = notas
-        self.asistencia = asistencia
+        self.asistencia = asistencia.__str__()+"%"
         self.estado = estado
+        detacta.id+=1
+        self.id = detacta.id
+
+    def mostrar(self):
+        linea =[self.id,(self.estudiante_nombre +" "+ self.estudiante_apellido),self.notas.N1,self.notas.N2,self.notas.P1,self.notas.EX1,self.notas.N3,self.notas.N4,self.notas.EX2,self.notas.P2,self.notas.REC,self.notas.FINAL,self.asistencia,self.estado]
+        return linea
 
 
 class cabecera:
@@ -118,19 +123,27 @@ class cabecera:
         detalle = detacta(estudiante, Int_notas,
                           Str_estado, Int_asistencia)
         self.detalles.append(detalle)
-
     def imprimir(self):
-        print('UNIVERSIDAD ESTATAL DE MILAGRO')
-        print(self.nombre.center(20))
-        print(f'FACULTAD: {self.facultad}')
-        print(f'CARRERA: {self.carrera}')
-        print(f'NIVEL: {self.nivel}')
-        print(f'PARALELO: {self.paralelo}')
-        print(f'ASIGNATURA: {self.asignatura}')
-        print(f'PROFESOR(A): {self.profesor}')
-        print(f'PERIODO LECTIVO: {self.inicio} - {self.fin}')
-        print("----------------------------------------------------------------")
-        print('No.   APELLIDOS Y NOMBRES   N1    N2   EX1   P1   N3   N4   EX2   P2   RE     N.FINAL    ASIST    ESTADO')
-        for i, detalle in enumerate(self.detalles, start=1):
-            detalle.mostrar(i)
-            print('---')
+        tabla = [
+            [self.nombre],
+            [(f"FACULTAD:{self.facultad}")],
+            [(f"CARRERA:{self.carrera}"),(f"NIVEL:{self.nivel}")],
+            [(f"PARALELO:{self.paralelo}"),(f"ASIGNATURA:{self.asignatura}")],
+            [(f"PROFESOR:{self.profesor}"),(f"PERIODO LECTIVO:{self.inicio} - {self.fin}")],
+        ]
+        cab = tabulate(tabla,"",tablefmt="rounded_grid")
+        print(cab)
+#         print(f'FACULTAD: {self.facultad}')
+#         print(f'CARRERA: {self.carrera}                   NIVEL:{self.nivel}')
+# #        print(f'NIVEL: {self.nivel}')
+#         print(f'PARALELO: {self.paralelo}                 ASIGNATURA:{self.asignatura}')
+#         print(f'ASIGNATURA: {self.asignatura}')
+#         print(f'PROFESOR(A): {self.profesor}')
+#         print(f'PERIODO LECTIVO: {self.inicio} - {self.fin}')
+        detalles =[]
+        for detalle in self.detalles:
+            linea = detalle.mostrar()
+            detalles.append(linea)
+        encabezados =["No.","APELLIDOS Y NOMBRES","N1","N2","EX1","P1","N3","N4","EX2","P2","RE","N.FINAL","ASIST","ESTADO"]
+        notas = tabulate(detalles,encabezados,tablefmt="rounded_grid")
+        print(notas)
