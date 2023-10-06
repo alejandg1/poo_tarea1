@@ -87,15 +87,12 @@ class docente(usuario):
 
 
 class detacta:
-    def __init__(self, estudiante: estudiante, notas: object, estado: str, asistencia: int, asignatura: str) -> None:
+    def __init__(self, estudiante: estudiante, notas: object, estado: str, asistencia: int) -> None:
         self.estudiante_nombre = estudiante.nombre
         self.estudiante_apellido = estudiante.apellido
         self.notas = notas
         self.asistencia = asistencia
         self.estado = estado
-        self.asignatura = asignatura
-    def mostrar(self, num):
-        print(f'{num}.   {self.estudiante_apellido} {self.estudiante_nombre}   {self.estudiante.cedula}   {self.notas.FINAL}')
 
 
 class cabecera:
@@ -118,7 +115,8 @@ class cabecera:
         Str_estado = funciones.obtener_estado(estudiante, asignatura)
         Int_asistencia = funciones.obtener_asistencia(
             estudiante, asignatura)
-        detalle = detacta(estudiante, Int_notas, Int_asistencia, Str_estado )
+        detalle = detacta(estudiante, Int_notas,
+                          Str_estado, Int_asistencia)
         self.detalles.append(detalle)
 
     def imprimir(self):

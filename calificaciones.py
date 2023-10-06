@@ -1,4 +1,4 @@
-from clases import Notas, estudiante, docente, asignatura, carrera, cabecera, detacta
+from clases import estudiante, docente, asignatura, carrera, cabecera
 
 ingenieria = carrera("ingenieria", "FACI", "UNEMI", "A1")
 
