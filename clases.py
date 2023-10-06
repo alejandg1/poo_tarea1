@@ -54,7 +54,7 @@ class asignatura:
 
     def agregar_notas(self, n1: float, n2: float, ex1: float, n3: float, n4: float, ex2: float,rec:float) -> None:
         self.notas = Notas(n1, n2, ex1,
-                           n3, n4, ex2,rec)
+                            n3, n4, ex2,rec)
 
         self.estado = "aprobado" if self.notas.FINAL> 70 or self.notas.FINAL+self.notas.REC > 70 else "reprobado"
 
@@ -120,9 +120,17 @@ class cabecera:
         self.detalles.append(detalle)
 
     def imprimir(self):
+        print('UNIVERSIDAD ESTATAL DE MILAGRO')
         print(self.nombre.center(20))
-        print()
-
-        for detalle in self.detalles:
-            # completar esto
-            print(detalle)
+        print(f'FACULTAD: {self.facultad}')
+        print(f'CARRERA: {self.carrera}')
+        print(f'NIVEL: {self.nivel}')
+        print(f'PARALELO: {self.paralelo}')
+        print(f'ASIGNATURA: {self.asignatura}')
+        print(f'PROFESOR(A): {self.profesor}')
+        print(f'PERIODO LECTIVO: {self.inicio} - {self.fin}')
+        print("----------------------------------------------------------------")
+        print('No.   APELLIDOS Y NOMBRES   N1    N2   EX1   P1   N3   N4   EX2   P2   RE     N.FINAL    ASIST    ESTADO')
+        for i, detalle in enumerate(self.detalles, start=1):
+            detalle.mostrar(i)
+            print('---')

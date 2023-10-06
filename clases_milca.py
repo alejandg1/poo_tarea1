@@ -66,3 +66,38 @@ class Estudiante(Usuario):
                 hallado = nombre
         return hallado
 
+class detacta:
+    def __init__(self, estudiante: Estudiante, notas: object, estado:str, asistencia:int, asignatura:str)-> None:
+        self.estudiante_nombre = estudiante.nombre
+        self.estudiante_apellido = estudiante.apellido
+        self.notas = notas
+        self.asistencia = asistencia
+        self.estado = estado
+        self.asignatura = asignatura
+
+class cabecera: 
+    def __init__(self, estudiante: Estudiante, nombre_acta: str, asignatura_name:str, seccion_asignatura:str) -> None:
+        self.nombre = nombre_acta
+        self.profesor = funciones.obtener_profesor( estudiante, asignatura_name)
+        self.asignatura = asignatura_name
+        self.nivel = funciones.obtener_nivel( estudiante, asignatura_name)
+        self.seccion = seccion_asignatura
+        self.carrera = estudiante.Carrera.nombre
+        self.paralelo = funciones.obtener_paralelo( estudiante, asignatura_name)
+        self.fechas = funciones.obtener_inicio_fin(estudiante)
+        self.facultad = funciones.obtener_facultad(estudiante)
+        self.detalles = []
+    
+    def agregar_detalle(self, estudiante: Estudiante, asignatura: str): 
+        funciones: acta()
+        Int_notas =funciones.obtener_notas(estudiante, asignatura)
+        Str_estado = funciones.obtener_estado(estudiante, asignatura)
+        Int_asistencia = funciones.obtener_asistencia(estudiante, asignatura)
+        detalle = detacta(estudiante, Int_notas, Str_estado, Int_asistencia, asignatura)
+        self.detalles.append(detalle)
+    
+    def imprimir(self):
+        print(self.nombre.center(20))
+        print()
+        
+        
