@@ -10,8 +10,7 @@ Ariana_pendeja = estudiante("Arianna", "Pendeja", ingenieria)
 William = estudiante("William", "Gei", ingenieria)
 Adre = estudiante("Alejandro", "Gómez", ingenieria)
 
-calculo = asignatura("Calculo", 1, 100, "cubano", "pagada", "matutina")
-poo = asignatura("poo", 4, 100, "el vera", "pagada", "matutina")
+calculo = asignatura("Calculo", 1, 100, "cubano", "pagada", "matutina") poo = asignatura("poo", 4, 100, "el vera", "pagada", "matutina")
 
 cubano = docente("cubano", "nose")
 
