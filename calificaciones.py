@@ -15,8 +15,9 @@ Ariana = estudiante("Arianna", "Zuñiga", ingenieria)
 William = estudiante("William", "Macias", ingenieria)
 Adre = estudiante("Alejandro", "Gómez", ingenieria)
 
-calculo = asignatura("Calculo", 1, 100, "cubano", "pagada", "Matutina", "24/04/2023", "20/08/2023", "ABRIL - AGOSTO 2023")
-poo = asignatura("POO", 4, 100, "DANIEL ALEXANDER VERA PAREDES", "pagada", "MATUTINA", "24/04/2023", "20/08/2023", "ABRIL - AGOSTO 2023")
+
+calculo = asignatura("Calculo", 1, 100, "cubano", "pagada", "matutina") poo = asignatura("poo", 4, 100, "el vera", "pagada", "matutina")
+
 
 cubano = docente("cubano", "nose")
 
